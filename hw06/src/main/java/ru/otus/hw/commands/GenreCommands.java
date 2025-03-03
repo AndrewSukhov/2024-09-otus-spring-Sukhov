@@ -16,10 +16,11 @@ public class GenreCommands {
 
     private final GenreConverter genreConverter;
 
+    // ag
     @ShellMethod(value = "Find all genres", key = "ag")
     public String findAllGenres() {
         return genreService.findAll().stream()
-                .map(genreConverter::genreToString)
-                .collect(Collectors.joining("," + System.lineSeparator()));
+            .map(genreConverter::genreToString)
+            .collect(Collectors.joining("," + System.lineSeparator()));
     }
 }

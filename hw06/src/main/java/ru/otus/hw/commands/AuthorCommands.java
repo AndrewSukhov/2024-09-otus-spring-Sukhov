@@ -16,10 +16,11 @@ public class AuthorCommands {
 
     private final AuthorConverter authorConverter;
 
+    // aa
     @ShellMethod(value = "Find all authors", key = "aa")
     public String findAllAuthors() {
         return authorService.findAll().stream()
-                .map(authorConverter::authorToString)
-                .collect(Collectors.joining("," + System.lineSeparator()));
+            .map(authorConverter::authorToString)
+            .collect(Collectors.joining("," + System.lineSeparator()));
     }
 }
