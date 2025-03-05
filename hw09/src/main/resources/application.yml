@@ -1,0 +1,16 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:library
+    username: sa
+    password:
+
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:schema.sql
+
+  jpa:
+    hibernate:
+      ddl-auto: none #режим DDL
+    show-sql: true #вывод в консоль sql-запросов
+    generate-ddl: false #инициализация схемы при запуске
