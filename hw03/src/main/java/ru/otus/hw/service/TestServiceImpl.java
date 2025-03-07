@@ -14,14 +14,14 @@ import java.util.List;
 @RequiredArgsConstructor
 public class TestServiceImpl implements TestService {
 
-    private final IOService ioService;
+    private final LocalizedIOService ioService;
 
     private final QuestionDao questionDao;
 
     @Override
     public TestResult executeTestFor(Student student) {
         ioService.printLine("");
-        ioService.printFormattedLine("Please answer the questions below%n");
+        ioService.printLineLocalized("TestService.answer.the.questions");
         var questions = questionDao.findAll();
 
         // Задать вопрос, получить ответ
@@ -50,8 +50,8 @@ public class TestServiceImpl implements TestService {
             return false;
         }
         int size = question.answers().size();
-        String errorMessage = "Incorrect number. You must enter a number between 1 and " + size;
-        String prompt = "Enter the answer: ";
+        String errorMessage = ioService.getMessage("TestService.error.message.Incorrect.number") + size;
+        String prompt = ioService.getMessage("TestService.enter.the.answer.number");
         int answerIndex = ioService.readIntForRangeWithPrompt(1, size, prompt, errorMessage);
 
         return answers.get(answerIndex - 1).isCorrect();

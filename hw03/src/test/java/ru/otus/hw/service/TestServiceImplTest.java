@@ -1,7 +1,10 @@
 package ru.otus.hw.service;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import ru.otus.hw.dao.QuestionDao;
 import ru.otus.hw.domain.Answer;
 import ru.otus.hw.domain.Question;
@@ -13,24 +16,21 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.anyInt;
 import static org.mockito.Mockito.anyString;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+@ExtendWith(MockitoExtension.class)
 public class TestServiceImplTest
 {
 
-    private TestServiceImpl testService;
-    private QuestionDao questionDao;
-    private IOService ioService;
+    @Mock
+    private LocalizedIOService ioService;
 
-    @BeforeEach
-    public void setUp()
-    {
-        questionDao = mock(QuestionDao.class);
-        ioService = mock(IOService.class);
-        testService = new TestServiceImpl(ioService, questionDao);
-    }
+    @Mock
+    private QuestionDao questionDao;
+
+    @InjectMocks
+    private TestServiceImpl testService;
 
     @Test
     public void testExecuteTestFor()
