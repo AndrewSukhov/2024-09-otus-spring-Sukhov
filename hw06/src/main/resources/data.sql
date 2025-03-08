@@ -12,3 +12,7 @@ insert into books_genres(book_id, genre_id)
 values (1, 1),   (1, 2),
        (2, 3),   (2, 4),
        (3, 5),   (3, 6);
+
+insert into comments(book_id, text, created_at)
+values (1, 'Comment to book_1', '2024-11-17'),
+       (2, 'Comment to book_2', '2024-11-17');

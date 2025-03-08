@@ -6,3 +6,9 @@ spring:
       mode: always
       data-locations: data.sql
       schema-locations: schema.sql
+
+  jpa:
+    generate-ddl: false # инициализация схемы при запуске
+    show-sql: true # вывод в консаоль sql-запросов
+    hibernate:
+      ddl-auto: none # режим DDL
