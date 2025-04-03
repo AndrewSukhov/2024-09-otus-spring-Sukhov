@@ -15,6 +15,7 @@ import ru.otus.hw.repositories.AuthorRepository;
 import ru.otus.hw.repositories.BookRepository;
 import ru.otus.hw.repositories.CommentRepository;
 import ru.otus.hw.repositories.GenreRepository;
+import ru.otus.hw.repositories.TagRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -35,6 +36,8 @@ public class BookServiceImpl implements BookService {
     private final BookMapper bookMapper;
 
     private final CommentRepository commentRepository;
+
+    private final TagRepository tagRepository;
 
     private final AclServiceWrapperService aclServiceWrapperService;
 
@@ -100,4 +103,18 @@ public class BookServiceImpl implements BookService {
         book = bookRepository.save(book);
         return bookMapper.toBookDto(book);
     }
+
+//    @Override
+//    @Transactional(readOnly = true)
+//    public List<BookDto> findBooksByTagText(String tagText) {
+//        // Находим теги по тексту
+//        List<Long> tagIds = tagRepository.findByTextContaining(tagText)
+//            .stream()
+//            .map(tag -> tag.getId())
+//            .toList();
+//
+//        // Находим книги по идентификаторам тегов и преобразуем их в DTO
+//        List<Book> books = bookRepository.findByTags_IdIn(tagIds);
+//        return bookMapper.toBookDtos(books);
+//    }
 }

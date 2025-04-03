@@ -42,8 +42,16 @@
                     </td>
                     <td>
                         <a sec:authorize="hasRole('ROLE_EDITOR')" th:href="@{/books/edit/{id}(id=${book.id})}" class="btn btn-info mx-2">Редактировать</a>
+                        <div class="dropdown-divider bg-light mx-2 align-self-center" style="height: 1.5rem; width: 1px;"></div>
                         <a th:href="@{/comments/{bookId}(bookId=${book.id})}" class="btn btn-warning mx-2">Комментарии</a>
                         <a th:href="@{/comments/create/{bookId}(bookId=${book.id})}" class="btn btn-success mx-2">Добавить комментарий</a>
+                        <div class="dropdown-divider bg-light mx-2 align-self-center" style="height: 1.5rem; width: 1px;"></div>
+                        <a th:href="@{/quotes/{bookId}(bookId=${book.id})}" class="btn btn-warning mx-2">Цитаты</a>
+                        <a th:href="@{/quotes/create/{bookId}(bookId=${book.id})}" class="btn btn-success mx-2">Добавить цитату</a>
+                        <div class="dropdown-divider bg-light mx-2 align-self-center" style="height: 1.5rem; width: 1px;"></div>
+                        <a th:href="@{/tags/{bookId}(bookId=${book.id})}" class="btn btn-warning mx-2">Теги</a>
+                        <a th:href="@{/tags/create/{bookId}(bookId=${book.id})}" class="btn btn-success mx-2">Добавить тег</a>
+                        <div class="dropdown-divider bg-light mx-2 align-self-center" style="height: 1.5rem; width: 1px;"></div>
                     </td>
                 </tr>
                 </tbody>

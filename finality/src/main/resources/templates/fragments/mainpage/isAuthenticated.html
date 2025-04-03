@@ -16,6 +16,12 @@
                 <!-- Validation search form -->
                 <script src="/js/search-validation.js"></script>
             </form>
+            <form th:action="@{/quotes/search}" method="get" class="d-flex my-2" role="search"
+                  onsubmit="return validateForm()">
+                <input th:name="quoteText" id="quoteText" class="form-control" type="search"
+                       placeholder="Поиск книги цитате:" aria-label="Поиск книги по цитате:">
+                <button class="btn btn-success" type="submit" id="searchButton1">Поиск</button>
+            </form>
         </div>
 
         <div class="my-3">

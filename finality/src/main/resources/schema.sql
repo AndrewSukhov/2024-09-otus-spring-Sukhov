@@ -78,6 +78,13 @@ CREATE TABLE IF NOT EXISTS acl_sid (
     PRIMARY KEY (id),
     UNIQUE KEY unique_uk_1 (sid,principal)
     );
+-- CREATE TABLE IF NOT EXISTS acl_sid
+-- (
+--     id        BIGINT       NOT NULL PRIMARY KEY AUTO_INCREMENT,
+--     principal TINYINT      NOT NULL,
+--     sid       VARCHAR(100) NOT NULL,
+--     UNIQUE (sid, principal)
+-- );
 
 CREATE TABLE IF NOT EXISTS acl_class (
                                          id bigint(20) NOT NULL AUTO_INCREMENT,
@@ -127,3 +134,27 @@ ALTER TABLE acl_object_identity
 
 ALTER TABLE acl_object_identity
     ADD FOREIGN KEY (owner_sid) REFERENCES acl_sid (id);
+
+
+create table quotes (
+                          id          bigserial,
+                          text        varchar(100),
+                          created_at  timestamp,
+                          book_id     bigint references books (id) on delete cascade,
+                          primary key (id)
+);
+
+create table tags (
+                      id          bigserial,
+                      text        varchar(100),
+                      created_at  timestamp,
+                      book_id     bigint references books (id) on delete cascade,
+                      primary key (id)
+);
+
+CREATE TABLE book_tags (
+                           book_id bigint references books (id) on delete cascade,
+                           tag_id bigint references tags (id) on delete cascade,
+                           PRIMARY KEY (book_id, tag_id)
+);
+

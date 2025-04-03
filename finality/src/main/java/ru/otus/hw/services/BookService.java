@@ -20,4 +20,6 @@ public interface BookService {
     void deleteById(Long id);
 
     List<BookDto> findAllOwnersBook(Pageable paging);
+
+//    List<BookDto> findBooksByTagText(String tagText);
 }

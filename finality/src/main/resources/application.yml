@@ -1,15 +1,39 @@
 spring:
   datasource:
     url: jdbc:h2:mem:testdb
+    username: sa
+    password:
+
+#  h2:
+#    console:
+#      enabled: true
+
+
+# При желании подключить PostgresSQL через поднятие докер образа
+# Команды докера
+#  docker ps -a
+#  docker volume ls
+#  docker-compose up -d
+#  docker stop postgres_container
+#  docker rm postgres_container
+#  docker volume rm finality_postgres_data
+
+#  datasource:
+#    url: jdbc:postgresql://localhost:5432/library
+#    username: library
+#    password: library
 
   sql:
     init:
       mode: always
       data-locations: classpath:data.sql
       schema-locations: classpath:schema.sql
+#      Раскомментировать в случае использования postgressql
+#      schema-locations: classpath:postgressql-shema.sql
 
   jpa:
     generate-ddl: false
-    show-sql: true
+    show-sql: true # для отображения SQL-запросов в консоли
     hibernate:
-      ddl-auto: none
+      ddl-auto: none # чтобы Hibernate не управлял схемой базы данных
+

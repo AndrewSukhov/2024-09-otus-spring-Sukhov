@@ -14,4 +14,6 @@ public interface BookRepository extends JpaRepository<Book, Long> {
 
     @EntityGraph(value = "book-author-genre")
     List<Book> findAll();
+
+//    List<Book> findByTags_IdIn(List<Long> tagIds);
 }

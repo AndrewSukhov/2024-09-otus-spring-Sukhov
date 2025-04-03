@@ -20,6 +20,7 @@ import ru.otus.hw.dto.BookUpdateRequest;
 import ru.otus.hw.dto.GenreDto;
 import ru.otus.hw.exceptions.EntityNotFoundException;
 import ru.otus.hw.mapper.BookMapper;
+import ru.otus.hw.models.Book;
 import ru.otus.hw.services.AuthorService;
 import ru.otus.hw.services.BookService;
 import ru.otus.hw.services.GenreService;
@@ -89,6 +90,14 @@ public class BookController {
         model.addAttribute("book", book);
         return "/books/get-book";
     }
+
+//    @GetMapping("/search")
+//    public String findBooksByTagText(@RequestParam String tagText, Model model) {
+////        return bookService.findBooksByTagText(tagText);
+//        List <BookDto> books = bookService.findBooksByTagText(tagText);
+//        model.addAttribute("books", books);
+//        return "/books/get-book";
+//    }
 
     @PreAuthorize("hasPermission(#id, 'ru.otus.hw.dto.BookDto', 'WRITE')")
     @GetMapping("/edit/{id}")
