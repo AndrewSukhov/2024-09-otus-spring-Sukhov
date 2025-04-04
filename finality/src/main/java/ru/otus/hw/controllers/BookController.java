@@ -134,4 +134,12 @@ public class BookController {
         List<GenreDto> genres = genreService.findAll();
         model.addAttribute("genres", genres);
     }
+
+    @GetMapping("/stats")
+    public String getBooksStats(Model model) {
+        long totalBooks = bookService.getTotalBooksCount();
+        model.addAttribute("totalBooks", totalBooks);
+        return "/books/stats";
+    }
+
 }

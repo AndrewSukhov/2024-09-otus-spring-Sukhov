@@ -104,17 +104,8 @@ public class BookServiceImpl implements BookService {
         return bookMapper.toBookDto(book);
     }
 
-//    @Override
-//    @Transactional(readOnly = true)
-//    public List<BookDto> findBooksByTagText(String tagText) {
-//        // Находим теги по тексту
-//        List<Long> tagIds = tagRepository.findByTextContaining(tagText)
-//            .stream()
-//            .map(tag -> tag.getId())
-//            .toList();
-//
-//        // Находим книги по идентификаторам тегов и преобразуем их в DTO
-//        List<Book> books = bookRepository.findByTags_IdIn(tagIds);
-//        return bookMapper.toBookDtos(books);
-//    }
+    @Override
+    public long getTotalBooksCount() {
+        return bookRepository.countAllBooks();
+    }
 }

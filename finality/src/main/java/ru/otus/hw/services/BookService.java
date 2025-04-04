@@ -21,5 +21,5 @@ public interface BookService {
 
     List<BookDto> findAllOwnersBook(Pageable paging);
 
-//    List<BookDto> findBooksByTagText(String tagText);
+    long getTotalBooksCount();
 }
