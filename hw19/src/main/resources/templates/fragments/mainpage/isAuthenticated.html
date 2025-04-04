@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <th:block th:insert="~{fragments/header :: head}"/>
+    <title>Главная страница</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <style>
+        .custom-size {
+            width: 64px;
+            height: 64px;
+            object-fit: cover;
+        }
+        .feature-card {
+            transition: all 0.3s ease;
+            border-radius: 10px;
+            border: none;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+        .feature-link {
+            text-decoration: none;
+            color: #212529;
+            display: flex;
+            align-items: center;
+            padding: 15px;
+        }
+        .feature-link:hover {
+            color: #0d6efd;
+        }
+        .search-box {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        .welcome-header {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+        }
+        .admin-section {
+            border-left: 4px solid #dc3545;
+            padding-left: 15px;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body class="bg-light">
+<div th:fragment="main" class="container py-4">
+    <div class="row">
+        <!-- Основной контент -->
+        <div class="col-lg-8">
+            <div class="welcome-header">
+                <h1 class="display-5 fw-bold">Добро пожаловать в библиотеку!</h1>
+                <p class="lead mb-0">Привет, <span sec:authentication="name" class="fw-bold"></span>!</p>
+            </div>
+
+            <!-- Здесь можно добавить дополнительный контент основной колонки -->
+            <div class="alert alert-info">
+                <i class="bi bi-info-circle-fill me-2"></i>
+                Используйте панель справа для быстрого доступа к функциям системы
+            </div>
+            <div class="mb-4">
+                <a th:href="@{/books/stats}" class="btn btn-info btn-lg">
+                    <i class="bi bi-graph-up"></i> Статистика библиотеки
+                </a>
+            </div>
+        </div>
+        <!-- Боковая панель -->
+        <div class="col-lg-4">
+            <!-- Поисковые формы -->
+            <div class="search-box">
+                <h5 class="mb-3"><i class="bi bi-search me-2"></i>Поиск</h5>
+
+                <form th:action="@{/books/find}" method="get" class="mb-3">
+                    <div class="input-group">
+                        <input th:name="bookId" id="bookId" class="form-control" type="search"
+                               placeholder="Поиск книги по ID" aria-label="Поиск книги по ID">
+                        <button class="btn btn-primary" type="submit" id="searchButton" disabled>
+                            <i class="bi bi-search"></i>
+                        </button>
+                    </div>
+                </form>
+
+                <form th:action="@{/quotes/search}" method="post" class="mb-3">
+                    <div class="input-group">
+                        <input th:name="searchText" id="searchText" class="form-control" type="search"
+                               placeholder="Поиск по цитате" aria-label="Поиск по цитате">
+                        <button class="btn btn-primary" type="submit">
+                            <i class="bi bi-search"></i>
+                        </button>
+                    </div>
+                </form>
+
+                <form th:action="@{/tags/search}" method="post">
+                    <div class="input-group">
+                        <input th:name="tagSearchText" id="tagSearchText" class="form-control" type="search"
+                               placeholder="Поиск по тегу" aria-label="Поиск по тегу">
+                        <button class="btn btn-primary" type="submit">
+                            <i class="bi bi-search"></i>
+                        </button>
+                    </div>
+                </form>
+                <script src="/js/search-validation.js"></script>
+            </div>
+
+            <!-- Быстрые действия -->
+            <div class="card feature-card">
+                <a th:href="@{/books/owners/userId/manage}" class="feature-link">
+                    <img src="/img/owners-books.ico" class="img-thumbnail custom-size me-3" alt="Мои книги">
+                    <div>
+                        <h5 class="mb-1">Управление книгами</h5>
+                        <p class="text-muted small mb-0">Просмотр и редактирование ваших книг</p>
+                    </div>
+                </a>
+            </div>
+
+            <div sec:authorize="hasAnyRole('ROLE_USER', 'ROLE_ADMIN', 'ROLE_EDITOR')" class="card feature-card">
+                <a href="/books/create" class="feature-link">
+                    <img src="/img/create-book.png" class="img-thumbnail custom-size me-3" alt="Создать книгу">
+                    <div>
+                        <h5 class="mb-1">Создать книгу</h5>
+                        <p class="text-muted small mb-0">Добавить новую книгу в библиотеку</p>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Админ-панель -->
+            <div sec:authorize="hasRole('ROLE_ADMIN')" class="admin-section">
+                <h4><i class="bi bi-shield-lock me-2"></i>Администрирование</h4>
+
+                <div class="card feature-card">
+                    <a href="/admin/users" class="feature-link">
+                        <img src="/img/users.png" class="img-thumbnail custom-size me-3" alt="Пользователи">
+                        <div>
+                            <h5 class="mb-1">Управление пользователями</h5>
+                            <p class="text-muted small mb-0">Редактирование учетных записей</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
