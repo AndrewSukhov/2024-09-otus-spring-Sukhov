@@ -15,4 +15,7 @@ public interface TagService {
     TagDto update(long id, String text);
 
     void deleteById(long id);
+
+    List<TagDto> findByTextContaining(String text);
+
 }

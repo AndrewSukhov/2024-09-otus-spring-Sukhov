@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import ru.otus.hw.dto.TagCreateUpdateRequest;
 import ru.otus.hw.dto.TagDto;
 import ru.otus.hw.exceptions.EntityNotFoundException;
@@ -76,4 +77,13 @@ public class TagController {
         tagService.deleteById(id);
         return "redirect:/books/all";
     }
+
+    @PostMapping("/search")
+    public String searchByText(@RequestParam String tagSearchText, Model model) {
+        List<TagDto> quotes = tagService.findByTextContaining(tagSearchText);
+        model.addAttribute("tags", quotes);
+        model.addAttribute("tagSearchText", tagSearchText);
+        return "tags/get-book-by-tag.html";
+    }
+
 }

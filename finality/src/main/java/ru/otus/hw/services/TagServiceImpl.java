@@ -68,4 +68,11 @@ public class TagServiceImpl implements TagService {
     public void deleteById(long id) {
         tagRepository.deleteById(id);
     }
+
+    @Override
+    public List<TagDto> findByTextContaining(String text) {
+        List<Tag> tags = tagRepository.getByTextContainingIgnoreCase(text);
+        return tagMapper.toTagDtos(tags);
+    }
+
 }

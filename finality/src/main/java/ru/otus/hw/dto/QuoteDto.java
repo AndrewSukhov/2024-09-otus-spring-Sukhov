@@ -9,8 +9,7 @@ import java.time.LocalDate;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class QuoteDto
-{
+public class QuoteDto {
     private Long id;
 
     private String text;
@@ -18,4 +17,5 @@ public class QuoteDto
     private Long bookId;
 
     private LocalDate createdAt;
+
 }

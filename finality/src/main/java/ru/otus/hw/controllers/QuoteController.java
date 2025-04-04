@@ -9,13 +9,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import ru.otus.hw.dto.BookDto;
 import ru.otus.hw.dto.QuoteCreateUpdateRequest;
 import ru.otus.hw.dto.QuoteDto;
 import ru.otus.hw.exceptions.EntityNotFoundException;
-import ru.otus.hw.models.Book;
 import ru.otus.hw.repositories.BookRepository;
-import ru.otus.hw.repositories.QuoteRepository;
 import ru.otus.hw.services.QuoteService;
 
 import java.util.List;
@@ -29,9 +26,6 @@ public class QuoteController
     private final QuoteService quoteService;
 
     private final BookRepository bookRepository;
-
-//    private final QuoteRepository quoteRepository;
-
 
     @GetMapping("/{bookId}")
     public String getAllQuotesByBook(@PathVariable("bookId") Long bookId, Model model) {
@@ -84,19 +78,13 @@ public class QuoteController
         quoteService.deleteById(id);
         return "redirect:/books/all";
     }
-//    @GetMapping("/search")
-//    public String findBooksByQuoteText(@RequestParam(name = "quoteText") String quoteText, Model model) {
-//        List<Book> books = quoteRepository.getBooksByQuoteText(quoteText);
-//        model.addAttribute("books", books);
-//        return "/books/get-book";
-//    }
-//
-//    @GetMapping("/search")
-//    public String findBooksByQuoteText(@RequestParam String tagText, Model model) {
-//        quoteService.getBooksByQuoteText()
-//        List <BookDto> books = bookService.findBooksByTagText(tagText);
-//        model.addAttribute("books", books);
-//        return "/books/get-book";
-//    }
+
+    @PostMapping("/search")
+    public String searchByText(@RequestParam String searchText, Model model) {
+        List<QuoteDto> quotes = quoteService.findByTextContaining(searchText);
+        model.addAttribute("quotes", quotes);
+        model.addAttribute("searchText", searchText);
+        return "quotes/get-book-by-qoute.html";
+    }
 
 }

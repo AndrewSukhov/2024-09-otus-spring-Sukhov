@@ -7,11 +7,11 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class QuoteCreateUpdateRequest
-{
+public class QuoteCreateUpdateRequest {
     private Long id;
 
     private String text;
 
     private Long bookId;
+
 }

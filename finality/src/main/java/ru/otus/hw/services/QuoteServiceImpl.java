@@ -6,7 +6,6 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.otus.hw.dto.QuoteDto;
 import ru.otus.hw.exceptions.EntityNotFoundException;
 import ru.otus.hw.mapper.QuoteMapper;
-import ru.otus.hw.models.Book;
 import ru.otus.hw.models.Quote;
 import ru.otus.hw.repositories.BookRepository;
 import ru.otus.hw.repositories.QuoteRepository;
@@ -70,9 +69,10 @@ public class QuoteServiceImpl implements QuoteService {
         quoteRepository.deleteById(id);
     }
 
-//    @Override
-//    @Transactional
-//    public List<Book> findBooksByQuoteText(String text) {
-//        return quoteRepository.getBooksByQuoteText(text);
-//    }
+    @Override
+    public List<QuoteDto> findByTextContaining(String text) {
+        List<Quote> quotes = quoteRepository.getByTextContainingIgnoreCase(text);
+        return quoteMapper.toQuoteDtos(quotes);
+    }
+
 }

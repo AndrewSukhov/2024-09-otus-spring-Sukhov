@@ -14,7 +14,7 @@ public interface QuoteRepository extends JpaRepository<Quote, Long> {
 
     void deleteAllByBookId(Long id);
 
-//    @Query("SELECT q.book FROM Quote q WHERE q.text LIKE %:text%")
-//    List<Book> getBooksByQuoteText(@Param("text") String text);
+    @Query("SELECT q FROM Quote q WHERE LOWER(q.text) LIKE LOWER(CONCAT('%', :text, '%'))")
+    List<Quote> getByTextContainingIgnoreCase(@Param("text") String text);
 
 }

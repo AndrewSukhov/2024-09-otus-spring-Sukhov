@@ -17,10 +17,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.jpa.repository.Query;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @Builder
 @Getter
@@ -31,8 +29,7 @@ import java.util.List;
 @ToString(exclude = {"book"})
 @Entity
 @Table(name = "quotes")
-public class Quote
-{
+public class Quote {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
